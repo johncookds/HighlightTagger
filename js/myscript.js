@@ -1,7 +1,10 @@
 document.addEventListener('mouseup',function(event)
 {
-	var sel = window.getSelection().toString();
-	
-	if(sel.length)
-		chrome.extension.sendRequest({'message':'setText','data': sel},function(response){})
+    var sel = window.getSelection().toString();
+    console.log(event.target.baseURI);
+    var current_tab = event.target.baseURI;
+    if(sel.length)
+        chrome.runtime.sendMessage({'message':'setText',
+                                    'data' : {'text': sel,
+                                            'url': current_tab}});
 })
